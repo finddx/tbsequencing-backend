@@ -1,6 +1,16 @@
 # TB-Kb Backend
 
-Based on Django Rest Framework.
+The backend of the tbsequencing portal is based on the Django Rest Framework. All infrastructure required for running the backend is defined under the main [repository](https://github.com/finddx/tbsequencing-infrastructure).
+
+The deployment workflows includes the following:
+
+1. Collecting the static files and copying them into an S3 bucket
+2. Building the backend docker image and pushing at ECR
+3. Running the migration(s)
+4. Forcing deployment of the ECS fargate task to use latest docker image
+
+You can find below instruction on setting up for development purposes.
+
 
 ## Project setup
 
