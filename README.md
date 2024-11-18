@@ -1,4 +1,4 @@
-# TB-Kb Backend
+# Tbsequencing backend
 
 The backend of the tbsequencing portal is based on the Django Rest Framework. All infrastructure required for running the backend is defined under the main [repository](https://github.com/finddx/tbsequencing-infrastructure).
 
@@ -229,7 +229,11 @@ on how to deal with database changes.
 ## Connecting a local Django web container with a remote database
 
 Use an ssh tunnel to allow the local container to connect to the remote database.
-Use the `-g (Allows remote hosts to connect to local forwarded ports.)` and `-L (Specifies that connections to the given TCP port or Unix socket on the local (client) host are to be forwarded to the given host and port, or Unix socket, on the remote side.)` options.
+Use the following options: 
+```
+-g (Allows remote hosts to connect to local forwarded ports.)
+-L (Specifies that connections to the given TCP port or Unix socket on the local (client) host are to be forwarded to the given host and port, or Unix socket, on the remote side.)
+```
 
 ```
 ssh -g -L ${local_port}:${remote_database_host_name}:${remote_port} ec2-user@${ec2_hostname/ip_address}
@@ -239,6 +243,7 @@ If you use the default neworking mode in docker compose (i.e. `bridge`), you mus
 It cannot be `localhost` (unless you change the networking mode to `host`). Usually it's `172.17.0.1`. 
 
 Modify the following environment variable in `.dc.env`. You can fetch from secret manager the master username/master password.
+
 ```
 DB_HOST=172.17.0.1
 DB_PORT=5432
@@ -246,4 +251,5 @@ DB_USER=tbkbmasteruser
 DB_PASSWORD=averysecretpassword
 DB_NAME=tbkbdb
 ```
+
 Only ever connect to the staging/test remote database. Connecting via SSH to the production database should be impossible anyway.
