@@ -1,0 +1,2941 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "TbKb Backend API",
+    "version": "v1",
+    "description": "WHO Global Tuberculosis Program backend API"
+  },
+  "paths": {
+    "/submission/packages/": {
+      "get": {
+        "operationId": "listPackages",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Package"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "post": {
+        "operationId": "createPackage",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{id}/": {
+      "get": {
+        "operationId": "retrievePackage",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "put": {
+        "operationId": "updatePackage",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "patch": {
+        "operationId": "partialUpdatePackage",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "delete": {
+        "operationId": "destroyPackage",
+        "description": "API endpoint to manage data submission packages.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/messages/": {
+      "get": {
+        "operationId": "listMessages",
+        "description": "Package messages views.\n\nAuthenticated user only allowed to read messages from its own package.\nWhen user creates a message, he becomes a sender of the message.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "post": {
+        "operationId": "createMessage",
+        "description": "Package messages views.\n\nAuthenticated user only allowed to read messages from its own package.\nWhen user creates a message, he becomes a sender of the message.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Message"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/messages/{id}/": {
+      "get": {
+        "operationId": "retrieveMessage",
+        "description": "Package messages views.\n\nAuthenticated user only allowed to read messages from its own package.\nWhen user creates a message, he becomes a sender of the message.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/contributors/": {
+      "get": {
+        "operationId": "listNestedContributors",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NestedContributor"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "post": {
+        "operationId": "createCreateContributors",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContributors"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContributors"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContributors"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateContributors"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/contributors/{id}/": {
+      "get": {
+        "operationId": "retrieveNestedContributor",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedContributor"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "put": {
+        "operationId": "updateNestedContributor",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedContributor"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "patch": {
+        "operationId": "partialUpdateNestedContributor",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedContributor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedContributor"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "delete": {
+        "operationId": "destroyNestedContributor",
+        "description": "Package contributors viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sequencing-data/": {
+      "get": {
+        "operationId": "listNestedPackageSequencingDatas",
+        "description": "API endpoint to manage package sequencing data files.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NestedPackageSequencingData"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sequencing-data/{id}/": {
+      "get": {
+        "operationId": "retrieveNestedPackageSequencingData",
+        "description": "API endpoint to manage package sequencing data files.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedPackageSequencingData"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "delete": {
+        "operationId": "destroyNestedPackageSequencingData",
+        "description": "API endpoint to manage package sequencing data files.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sample-aliases/": {
+      "get": {
+        "operationId": "listNestedSampleAlias",
+        "description": "Package Sample aliases viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NestedSampleAlias"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sample-aliases/{id}/": {
+      "get": {
+        "operationId": "retrieveNestedSampleAlias",
+        "description": "Package Sample aliases viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedSampleAlias"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "put": {
+        "operationId": "updateNestedSampleAlias",
+        "description": "Package Sample aliases viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedSampleAlias"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      },
+      "patch": {
+        "operationId": "partialUpdateNestedSampleAlias",
+        "description": "Package Sample aliases viewset.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedSampleAlias"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedSampleAlias"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/genphen/countries/": {
+      "get": {
+        "operationId": "listCountrys",
+        "description": "API endpoint to manage countries.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Country"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "genphen"
+        ]
+      }
+    },
+    "/genphen/countries/{three_letters_code}/": {
+      "get": {
+        "operationId": "retrieveCountry",
+        "description": "API endpoint to manage countries.",
+        "parameters": [
+          {
+            "name": "three_letters_code",
+            "in": "path",
+            "required": true,
+            "description": "A unique value identifying this country.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "genphen"
+        ]
+      }
+    },
+    "/genphen/drugs/": {
+      "get": {
+        "operationId": "listDrugs",
+        "description": "Drug views.",
+        "parameters": [
+          {
+            "name": "is_associated",
+            "required": false,
+            "in": "query",
+            "description": "is_associated",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DrugRead"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "genphen"
+        ]
+      }
+    },
+    "/genphen/drugs/{drug_id}/": {
+      "get": {
+        "operationId": "retrieveDrug",
+        "description": "Drug views.",
+        "parameters": [
+          {
+            "name": "drug_id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this drug.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "is_associated",
+            "required": false,
+            "in": "query",
+            "description": "is_associated",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrugRead"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "genphen"
+        ]
+      }
+    },
+    "/genphen/gene-drug-resistance-associations/": {
+      "get": {
+        "operationId": "listGeneDrugResistanceAssociations",
+        "description": "Gene drug resistance associations viewset.",
+        "parameters": [
+          {
+            "name": "drug_id",
+            "required": false,
+            "in": "query",
+            "description": "drug_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tier",
+            "required": false,
+            "in": "query",
+            "description": "tier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeneDrugResistanceAssociation"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "genphen"
+        ]
+      }
+    },
+    "/overview/global-drugs/": {
+      "get": {
+        "operationId": "listResistanceStatsByDrugs",
+        "description": "Resistance stats by drug (drug tab graph).",
+        "parameters": [
+          {
+            "name": "drug",
+            "required": false,
+            "in": "query",
+            "description": "drug",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resistance_type",
+            "required": false,
+            "in": "query",
+            "description": "resistance_type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Pheno",
+                "Geno"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResistanceStatsByDrug"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/global-drugs/map/": {
+      "get": {
+        "operationId": "listResistanceStatsByCountrys",
+        "description": "Resistance stats by country (overview tab graph).",
+        "parameters": [
+          {
+            "name": "drug",
+            "required": false,
+            "in": "query",
+            "description": "drug",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resistance_type",
+            "required": false,
+            "in": "query",
+            "description": "resistance_type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Pheno",
+                "Geno"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResistanceStatsByCountry"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/gene-associations/": {
+      "get": {
+        "operationId": "listGeneDrugResistanceAssociations",
+        "description": "Legacy gene drug resistance associations viewset.\n\nMust be switched to GeneDrugResistanceAssociationsViewSet (FE work required).",
+        "parameters": [
+          {
+            "name": "drug",
+            "required": false,
+            "in": "query",
+            "description": "drug",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LegacyGeneDrugResistanceAssociation"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/gene-associations/{id}/": {
+      "get": {
+        "operationId": "retrieveGeneDrugResistanceAssociation",
+        "description": "Legacy gene drug resistance associations viewset.\n\nMust be switched to GeneDrugResistanceAssociationsViewSet (FE work required).",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "A unique integer value identifying this gene drug resistance association.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "drug",
+            "required": false,
+            "in": "query",
+            "description": "drug",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LegacyGeneDrugResistanceAssociation"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/drug-gene-infos/": {
+      "get": {
+        "operationId": "listGeneDrugStats",
+        "description": "Gene drug resistance stats data (table at the bottom of drugs/genes tabs).",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "gene_name",
+            "required": false,
+            "in": "query",
+            "description": "gene_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variant_name",
+            "required": false,
+            "in": "query",
+            "description": "variant_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nucleodic_ann_name",
+            "required": false,
+            "in": "query",
+            "description": "nucleodic_ann_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "proteic_ann_name",
+            "required": false,
+            "in": "query",
+            "description": "proteic_ann_name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "consequence",
+            "required": false,
+            "in": "query",
+            "description": "consequence",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "drug",
+            "required": false,
+            "in": "query",
+            "description": "drug",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "gene_db_crossref_id",
+            "required": false,
+            "in": "query",
+            "description": "gene_db_crossref_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variant_grade",
+            "required": false,
+            "in": "query",
+            "description": "variant_grade",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "variant_grade_version",
+            "required": false,
+            "in": "query",
+            "description": "variant_grade_version",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Ordering",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "resistantCount",
+                "-resistantCount",
+                "susceptibleCount",
+                "-susceptibleCount",
+                "intermediateCount",
+                "-intermediateCount",
+                "globalFrequency",
+                "-globalFrequency",
+                "totalCounts",
+                "-totalCounts"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GeneDrugStats"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/genes/": {
+      "get": {
+        "operationId": "listGenes",
+        "description": "Genes viewset.",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page_size",
+            "required": false,
+            "in": "query",
+            "description": "Number of results to return per page.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "A search term.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 123
+                    },
+                    "next": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=4"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "uri",
+                      "example": "http://api.example.org/accounts/?page=2"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Gene"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/genes/genome-context/": {
+      "get": {
+        "operationId": "genomeContextGene",
+        "description": "List of genes by locations.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Gene"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/genes/{dbxref}/": {
+      "get": {
+        "operationId": "retrieveGene",
+        "description": "Genes viewset.",
+        "parameters": [
+          {
+            "name": "dbxref",
+            "in": "path",
+            "required": true,
+            "description": "A unique value identifying this gene.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "A search term.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneRetrieve"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/gene-search-history/": {
+      "get": {
+        "operationId": "listGeneSearchHistorys",
+        "description": "GeneMostSearched views.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeneSearch"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/gene-search-history/recently/": {
+      "get": {
+        "operationId": "recentlySearchGeneSearchHistory",
+        "description": "List of recently searched genes, ordered by date.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneSearch"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/overview/global-samples/": {
+      "get": {
+        "operationId": "listGlobalResistanceStats",
+        "description": "Return single record with global resistance statistics numbers.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "overview"
+        ]
+      }
+    },
+    "/submission/packages/{id}/match/": {
+      "post": {
+        "operationId": "matchPackage",
+        "description": "Perform package data matching.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{id}/submit/": {
+      "post": {
+        "operationId": "submitPackage",
+        "description": "Submit the package for moderation.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Package"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Package"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/mic-tests/": {
+      "post": {
+        "operationId": "createMICTests",
+        "description": "Import Excel file with data.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MICTests"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/mic-tests/clear/": {
+      "post": {
+        "operationId": "clearMICTests",
+        "description": "Clear imported data.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MICTests"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MICTests"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/pds-tests/": {
+      "post": {
+        "operationId": "createPDSTests",
+        "description": "Import Excel file with data.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PDSTests"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/pds-tests/clear/": {
+      "post": {
+        "operationId": "clearPDSTests",
+        "description": "Clear imported data.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PDSTests"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PDSTests"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sequencing-data/fetch/": {
+      "post": {
+        "operationId": "fetchS3FileNestedPackageSequencingData",
+        "description": "Fetch file from S3, validate and generate MD5 hash.\n\nReturn redirect to object details.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedPackageSequencingData"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    },
+    "/submission/packages/{package_pk}/sequencing-data/upload-link/": {
+      "post": {
+        "operationId": "uploadLinkNestedPackageSequencingData",
+        "description": "Generate S3 file upload link.\n\nThe file will be uploaded by the path `temporary/{username}_{filename}`.\nRaise serializers.ValidationError, if the file already exists by tmp path,\nmeans user should send fetch request for that file.\nAlso raise serializers.ValidationError, if the file already persisted,\nmeans user should select another name for a file\nor remove sequencing data object, corresponded to this file.",
+        "parameters": [
+          {
+            "name": "package_pk",
+            "in": "path",
+            "required": true,
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NestedPackageSequencingData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NestedPackageSequencingData"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "submission"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Package": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 8192
+          },
+          "origin": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "matching_state": {
+            "enum": [
+              "NEVER_MATCHED",
+              "MATCHED",
+              "CHANGED",
+              ""
+            ],
+            "type": "string",
+            "readOnly": true
+          },
+          "state": {
+            "enum": [
+              "DRAFT",
+              "PENDING",
+              "ACCEPTED",
+              "REJECTED",
+              ""
+            ],
+            "type": "string",
+            "readOnly": true
+          },
+          "state_changed_on": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "rejection_reason": {
+            "type": "string",
+            "readOnly": true
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pk": {
+                  "type": "integer",
+                  "readOnly": true
+                },
+                "created_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "readOnly": true
+                },
+                "type": {
+                  "enum": [
+                    "MIC",
+                    "PDS",
+                    "OTHER"
+                  ],
+                  "type": "string"
+                },
+                "file": {
+                  "type": "string",
+                  "format": "binary"
+                },
+                "size": {
+                  "type": "integer",
+                  "maximum": 9223372036854775807,
+                  "minimum": -9223372036854775808,
+                  "format": "int64",
+                  "nullable": true
+                },
+                "original_filename": {
+                  "type": "string",
+                  "nullable": true,
+                  "maxLength": 1024
+                }
+              },
+              "required": [
+                "file"
+              ]
+            },
+            "readOnly": true
+          },
+          "messages_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "messages": {
+            "type": "string",
+            "readOnly": true
+          },
+          "sequencing_data": {
+            "type": "string",
+            "readOnly": true
+          },
+          "sequencing_data_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "mic_tests": {
+            "type": "string",
+            "readOnly": true
+          },
+          "mic_tests_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "mic_drugs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true
+          },
+          "mic_drugs_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "pds_tests": {
+            "type": "string",
+            "readOnly": true
+          },
+          "pds_tests_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "pds_drugs_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "pds_drug_concentration_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "pds_drugs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true
+          },
+          "sample_aliases": {
+            "type": "string",
+            "readOnly": true
+          },
+          "sample_aliases_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "contributors": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "sender": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+                "pattern": "^[\\w.@+-]+\\z",
+                "maxLength": 150
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "maxLength": 254
+              },
+              "first_name": {
+                "type": "string",
+                "maxLength": 150
+              },
+              "last_name": {
+                "type": "string",
+                "maxLength": 150
+              }
+            },
+            "required": [
+              "username"
+            ],
+            "readOnly": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2000
+          }
+        }
+      },
+      "NestedContributor": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "first_name": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "last_name": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 1024
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "role"
+        ]
+      },
+      "NestedPackageSequencingData": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "url": {
+            "type": "string",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "filename": {
+            "type": "string",
+            "pattern": "^[\\w,\\.\\s-]+\\.fastq\\.gz$"
+          },
+          "sequencing_data": {
+            "type": "object",
+            "properties": {
+              "pk": {
+                "type": "integer",
+                "readOnly": true
+              },
+              "filename": {
+                "type": "string",
+                "pattern": "^[\\w,\\.\\s-]+\\.fastq\\.gz$"
+              },
+              "file_path": {
+                "type": "string",
+                "readOnly": true,
+                "nullable": true
+              },
+              "file_url": {
+                "type": "string",
+                "readOnly": true
+              },
+              "file_size": {
+                "type": "integer",
+                "readOnly": true,
+                "nullable": true
+              },
+              "library_name": {
+                "type": "string",
+                "readOnly": true
+              },
+              "data_location": {
+                "enum": [
+                  "NCBI",
+                  "TB-Kb"
+                ],
+                "type": "string",
+                "readOnly": true
+              }
+            },
+            "required": [
+              "filename"
+            ],
+            "readOnly": true
+          },
+          "verdicts": {
+            "type": "object",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "filename"
+        ]
+      },
+      "NestedSampleAlias": {
+        "type": "object",
+        "properties": {
+          "pk": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "fastq_prefix": {
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          },
+          "verdicts": {
+            "type": "object",
+            "readOnly": true
+          },
+          "mic_tests_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "pds_tests_count": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "match_source": {
+            "enum": [
+              "NO_MATCH",
+              "FASTQ_UPLOADED",
+              "FASTQ_UPLOADED_NEW_SAMPLE",
+              "FASTQ_EXISTING",
+              "NCBI",
+              "NCBI_FASTQ",
+              "USER_ALIAS"
+            ],
+            "type": "string",
+            "readOnly": true,
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "country_id": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648
+          },
+          "two_letters_code": {
+            "type": "string",
+            "maxLength": 2
+          },
+          "three_letters_code": {
+            "type": "string",
+            "maxLength": 3
+          },
+          "country_usual_name": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "country_official_name": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1024
+          }
+        },
+        "required": [
+          "country_id",
+          "two_letters_code",
+          "three_letters_code",
+          "country_usual_name"
+        ]
+      },
+      "DrugRead": {
+        "type": "object",
+        "properties": {
+          "drug_id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "drug_name": {
+            "type": "string",
+            "maxLength": 8192
+          },
+          "code": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "drug_name",
+          "code"
+        ]
+      },
+      "GeneDrugResistanceAssociation": {
+        "type": "object",
+        "properties": {
+          "drug_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "gene_db_crossref_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "locus_tag": {
+            "type": "string",
+            "readOnly": true
+          },
+          "gene_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "tier": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648
+          }
+        },
+        "required": [
+          "tier"
+        ]
+      },
+      "ResistanceStatsByDrug": {
+        "type": "object",
+        "properties": {
+          "susceptible": {
+            "type": "integer"
+          },
+          "resistant": {
+            "type": "integer"
+          },
+          "intermediate": {
+            "type": "integer"
+          },
+          "ratio_susceptible": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "ratio_resistant": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "ratio_intermediate": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "total": {
+            "type": "integer"
+          },
+          "drug": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "susceptible",
+          "resistant",
+          "intermediate",
+          "ratio_susceptible",
+          "ratio_resistant",
+          "ratio_intermediate",
+          "total",
+          "drug"
+        ]
+      },
+      "ResistanceStatsByCountry": {
+        "type": "object",
+        "properties": {
+          "susceptible": {
+            "type": "integer"
+          },
+          "resistant": {
+            "type": "integer"
+          },
+          "intermediate": {
+            "type": "integer"
+          },
+          "ratio_susceptible": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "ratio_resistant": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "ratio_intermediate": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.1,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "total": {
+            "type": "integer"
+          },
+          "country_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "susceptible",
+          "resistant",
+          "intermediate",
+          "ratio_susceptible",
+          "ratio_resistant",
+          "ratio_intermediate",
+          "total",
+          "country_id"
+        ]
+      },
+      "LegacyGeneDrugResistanceAssociation": {
+        "type": "object",
+        "properties": {
+          "gene_db_crossref": {
+            "type": "integer"
+          },
+          "gene_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "drugs": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "gene_db_crossref"
+        ]
+      },
+      "GeneDrugStats": {
+        "type": "object",
+        "properties": {
+          "drug": {
+            "type": "integer"
+          },
+          "drug_name": {
+            "type": "string"
+          },
+          "gene_db_crossref_id": {
+            "type": "integer"
+          },
+          "gene_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "variant_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "variant_grade": {
+            "type": "string",
+            "readOnly": true
+          },
+          "variant_grade_version": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "nucleodic_ann_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "proteic_ann_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "consequence": {
+            "type": "string",
+            "readOnly": true
+          },
+          "resistant_count": {
+            "type": "integer"
+          },
+          "susceptble_count": {
+            "type": "integer"
+          },
+          "intermediate_count": {
+            "type": "integer"
+          },
+          "global_frequency": {
+            "type": "string",
+            "format": "decimal",
+            "multipleOf": 0.01,
+            "maximum": 1000,
+            "minimum": -1000
+          },
+          "total_counts": {
+            "type": "integer"
+          },
+          "start_pos": {
+            "type": "integer"
+          },
+          "end_pos": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "drug",
+          "drug_name",
+          "gene_db_crossref_id",
+          "resistant_count",
+          "susceptble_count",
+          "intermediate_count",
+          "global_frequency",
+          "total_counts",
+          "start_pos",
+          "end_pos"
+        ]
+      },
+      "Gene": {
+        "type": "object",
+        "properties": {
+          "gene_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "gene_db_crossref_id": {
+            "type": "integer"
+          },
+          "locus_tag": {
+            "type": "string",
+            "nullable": true
+          },
+          "ncbi_id": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 128
+          },
+          "gene_description": {
+            "type": "string",
+            "nullable": true
+          },
+          "gene_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "start_pos": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648,
+            "nullable": true
+          },
+          "strand": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648,
+            "nullable": true
+          },
+          "end_pos": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648,
+            "nullable": true
+          },
+          "protein_length": {
+            "type": "integer",
+            "maximum": 2147483647,
+            "minimum": -2147483648,
+            "nullable": true
+          }
+        },
+        "required": [
+          "gene_db_crossref_id"
+        ]
+      },
+      "GeneRetrieve": {
+        "type": "object",
+        "properties": {
+          "genes_overview": {
+            "type": "object",
+            "properties": {
+              "gene_name": {
+                "type": "string",
+                "nullable": true
+              },
+              "gene_db_crossref_id": {
+                "type": "integer"
+              },
+              "locus_tag": {
+                "type": "string",
+                "nullable": true
+              },
+              "ncbi_id": {
+                "type": "string",
+                "nullable": true,
+                "maxLength": 128
+              },
+              "gene_description": {
+                "type": "string",
+                "nullable": true
+              },
+              "gene_type": {
+                "type": "string",
+                "nullable": true
+              },
+              "start_pos": {
+                "type": "integer",
+                "maximum": 2147483647,
+                "minimum": -2147483648,
+                "nullable": true
+              },
+              "strand": {
+                "type": "integer",
+                "maximum": 2147483647,
+                "minimum": -2147483648,
+                "nullable": true
+              },
+              "end_pos": {
+                "type": "integer",
+                "maximum": 2147483647,
+                "minimum": -2147483648,
+                "nullable": true
+              },
+              "protein_length": {
+                "type": "integer",
+                "maximum": 2147483647,
+                "minimum": -2147483648,
+                "nullable": true
+              }
+            },
+            "required": [
+              "gene_db_crossref_id"
+            ],
+            "readOnly": true
+          },
+          "genes": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "GeneSearch": {
+        "type": "object",
+        "properties": {
+          "counter": {
+            "type": "integer"
+          },
+          "gene_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "gene_db_crossref_id": {
+            "type": "integer"
+          },
+          "locus_tag": {
+            "type": "string",
+            "readOnly": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "counter",
+          "gene_db_crossref_id",
+          "date"
+        ]
+      },
+      "MICTests": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "writeOnly": true
+          }
+        }
+      },
+      "PDSTests": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "writeOnly": true
+          }
+        }
+      },
+      "CreateContributors": {
+        "type": "object",
+        "properties": {
+          "contributors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "pk": {
+                  "type": "integer",
+                  "readOnly": true
+                },
+                "url": {
+                  "type": "string",
+                  "readOnly": true
+                },
+                "first_name": {
+                  "type": "string",
+                  "maxLength": 1024
+                },
+                "last_name": {
+                  "type": "string",
+                  "maxLength": 1024
+                },
+                "role": {
+                  "type": "string",
+                  "maxLength": 1024
+                }
+              },
+              "required": [
+                "first_name",
+                "last_name",
+                "role"
+              ]
+            }
+          }
+        },
+        "required": [
+          "contributors"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Development server"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}

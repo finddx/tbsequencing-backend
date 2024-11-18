@@ -1,0 +1,1 @@
+from .drugs import DrugsFilterSet

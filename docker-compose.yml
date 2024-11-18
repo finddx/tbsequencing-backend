@@ -1,0 +1,63 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+  mailcatcher:
+    image: tophfr/mailcatcher
+    ports:
+      - "127.0.0.1:1080:80"
+      - "127.0.0.1:1025:25"
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
+    command:
+      - bash
+      - docker-start-web.sh
+    volumes:
+      - .:/app
+      - static_files:/www/data
+    ports:
+      - "8001:8000"
+    env_file:
+      - .dc.env
+    environment:
+      STATIC_ROOT: /www/data
+    depends_on:
+      - db
+      - mailcatcher
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_files:/www/data:ro
+    ports:
+      - "8000:80"
+    depends_on:
+      - web
+    restart: unless-stopped
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "127.0.0.1:2080:8080"
+    restart: unless-stopped
+    environment:
+      - SWAGGER_JSON=/opt/openapi-schema.json
+    volumes:
+      - ./api/static/api:/opt
+volumes:
+  pg_data:
+  static_files:

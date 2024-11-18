@@ -1,0 +1,85 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+#    -   id: check-added-large-files  # database dump is too large
+    -   id: check-ast
+#    -   id: pretty-format-json  # reformatting generated pipfile.lock
+    -   id: check-merge-conflict
+    -   id: check-yaml
+#    -   id: detect-aws-credentials  # no need yet
+    -   id: detect-private-key
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+    -   id: python-no-eval
+    -   id: python-use-type-annotations
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.2.3
+    hooks:
+    -   id: add-trailing-comma
+-   repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
+    rev: v0.1.0
+    hooks:
+    -   id: dockerfilelint
+-   repo: https://github.com/motet-a/jinjalint
+    rev: '01e0a4d8f1ee775aee00eb9d715eff2b4cc49e4d'
+    hooks:
+    -   id: jinjalint
+-   repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.31.1
+    hooks:
+    -   id: markdownlint
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+    -   id: bandit
+        exclude: test_.*?\.py
+        args: [
+            --skip,
+            "B311"  # Standard pseudo-random generators are not suitable for security
+        ]
+-   repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    -   id: black
+-   repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.1.1
+    hooks:
+    -   id: pydocstyle
+        args:
+            - "--ignore=D100,D104,D212,D203,D106,D400"
+            # D100 Missing docstring in public module.
+            # D104 Missing docstring in public package.
+            # D212 Multi-line docstring summary should start at the first line. Conflicts with D213.
+            # D203 1 blank line required before class docstring. Conflicts with D211.
+            # D106 Missing docstring in public nested class. Unnecessary since usually relates to Meta class.
+            # D400 First line should end with a period. Disabled in favor of broader inspection D415
+            # D401 First line should be in imperative mood
+        exclude: migrations/  # Do not check generated code
+-   repo: local
+    hooks:
+    -   id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        require_serial: true
+#        args:
+#            # Moved into .pylintrc
+#            - "--disable=C0114"  # Missing docstring in public module.
+#            - "--disable=R0903"  # Too few public methods. Conflicts with declarative classes.
+#            - "--disable=R0901"  # Too many ancestors. Conflicts with DRF-provided overrideable classes.
+#            - "--disable=W0511"  # TO DO's.
+        # Somehow does not
+        exclude: migrations/  # Do not check generated code
+    -   id: docker-compose-check  # docker must be installed on system
+        name: docker-compose.yml check
+        entry: docker compose -f docker-compose.yml config
+        language: system
+        files: docker-compose.yml
+        pass_filenames: false

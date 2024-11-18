@@ -1,0 +1,97 @@
+name: 'Testing'
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    container:
+      image: hadolint/hadolint:latest-debian
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Hadolinting
+        run: |
+         hadolint Dockerfile || true
+         hadolint prebuild.Dockerfile || true
+
+  pylint:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies pip
+        run: pip install --no-cache-dir --upgrade pip pipenv
+      - name: Install dep pipenv
+        run: pipenv install --system --dev --deploy
+      - name: Install Pylint
+        run: pip install pylint
+      - name: Pylinting
+        run: pylint --recursive=y .
+      
+  semgrep:
+    runs-on: ubuntu-latest
+    container:
+      image: registry.gitlab.com/security-products/semgrep:4 
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Scan
+      run: semgrep scan --config=auto --output semgrep.json --json
+    - name: Upload scan report
+      uses: actions/upload-artifact@v4
+      with:
+        name: scan-report-semgrep
+        path: semgrep.json
+
+  run_django_tests:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.10
+    env:
+      # django vars
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: postgres
+      SECRET_KEY: DUMMYSECRETKEYVALUE
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PORT: 5432
+          
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies pip
+        run: pip install --no-cache-dir --upgrade pip pipenv
+      - name: Install dep pipenv
+        run: pipenv install --system --dev --deploy
+      - name: Pytest
+        run: pytest
+      - name: Manage check
+        run: python manage.py check -v 3

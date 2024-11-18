@@ -1,0 +1,36 @@
+name: 'Deploy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  collect_static:
+    uses: finddx/seq-treat-tbkb-github-workflows/.github/workflows/collect_static_backend.yml@main
+    with:
+      environment: ${{ github.event.inputs.environment }}
+    secrets: 
+      AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
+
+  copy_static:
+    needs: collect_static
+    uses: finddx/seq-treat-tbkb-github-workflows/.github/workflows/copy_static_files.yml@main
+    with:
+      environment: ${{ github.event.inputs.environment }}
+      runner: 'ubuntu-latest'
+      deploy_type: 'backend'
+    secrets: 
+      AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}
+
+  deploy_ecs_backend:
+    uses: finddx/seq-treat-tbkb-github-workflows/.github/workflows/backend_ecs_tasks.yml@main
+    with:
+      environment: ${{ github.event.inputs.environment }}
+    secrets: 
+      AWS_ACCOUNT_ID: ${{secrets.AWS_ACCOUNT_ID}}

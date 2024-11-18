@@ -1,0 +1,10 @@
+[MASTER]
+
+disable=missing-module-docstring,
+        too-few-public-methods,  # Conflicts with declarative classes.
+        use-dict-literal,  # Missing docstring in public module.
+        too-many-ancestors,  # Conflicts with DRF-provided overrideable classes.
+        fixme,  # TO-DO's
+        
+# ignore generated migrations code
+ignore=migrations

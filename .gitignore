@@ -1,0 +1,9 @@
+/.mypy_cache
+/.pytest_cache
+/.env
+__pycache__/
+/tmp
+/static
+.coverage
+.idea/
+.aws-sam/
