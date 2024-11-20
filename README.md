@@ -9,7 +9,46 @@ The deployment workflows includes the following:
 3. Running the migration(s)
 4. Forcing deployment of the ECS fargate task to use latest docker image
 
-You can find below instruction on setting up for development purposes.
+The backend will be accessible by adding the suffix "/admin/" to your chosen domain address.
+
+Authentication is handled by OIDC connected to an Entra ID tenant.
+
+# Authentication configuration
+
+The system has been integrated to work with Entra ID (formerly Azure AD) authentication, using azure/msal-react on the frontend and django_auth_adfs on the backend.
+
+msal-react uses ID tokens whereas django_auth_adfs uses Access tokens. Reference:  https://oauth.net/id-tokens-vs-access-tokens/
+
+To configure the application on Entra ID, we will need to register two apps, one for the frontend and one for the backend.
+
+## Backend application
+
+For the backend Entra ID application, set the Redirect URI in a Web Scope to https://*domain-address*/api/v1/oauth2/callback
+ 
+⚠️For testing and development purposes only, the Redirect URI can be defined under http scheme, only with domain name localhost.⚠️
+
+Expose an API that both Admins and users can consent to. 
+
+Retrieve the Tenant ID, the Application ID and create a client secret so that you can fill the following keys in the AWS Secrets that was created by the [main repository](https://github.com/finddx/tbsequencing-infrastructure)
+
+|Key name|Notes|
+|-----|--------|
+|ADFS_TENANT_ID |Tenant identifier |
+|ADFS_CLIENT_ID|Application (client) ID of the backend in the Entra ID app declaration|
+|ADFS_CLIENT_SECRET|Client Secret value, requested earlier on the Entra ID backend app declaration, under the Certificates & secrets tab|
+
+## Access to the admin django panel
+
+The Django admin panel will be served at https://*domain-address*/admin/
+
+Each users that must be granted access to the admin panel must be assigned this role under the "Enterprise applications" view, which is available on the landing panel of the "Azure AD" service.
+
+Under "Enterprise applications", select the "Users and groups" panel. There select "Add User/Group" and assign the users to the admins groups.
+
+Finally, the Entra ID admin must grant consent for the permission in the same "Enterprise application" menu.
+
+
+# Development set up 
 
 
 ## Project setup
